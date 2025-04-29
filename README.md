@@ -16,8 +16,10 @@
 
 1. Скачайте последнюю версию плагина с [Releases](https://github.com/Limon4ik349/Thirst/releases).
 2. Установите плагины [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) и [ItemsAdder](https://www.spigotmc.org/resources/%E2%9C%A8itemsadder%E2%AD%90emotes-mobs-items-armors-hud-gui-emojis-blocks-wings-hats-liquids.73355/).
-2. Поместите `.jar` файл в папку `plugins` вашего сервера (протестировано на версии PurPur 1.21.1).
-3. Перезапустите сервер.
+3. Поместите папку data в plugins/ItemsAdder/contents (можете переименовать в thirst, для удобства).
+4. Поместите `.jar` файл в папку `plugins` вашего сервера (протестировано на версии PurPur 1.21.1).
+5. Перезапустите сервер.
+6. Перезагрузите ресурспак командой /iazip.
 
 ---
 
