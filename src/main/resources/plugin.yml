@@ -1,0 +1,11 @@
+name: Thirst
+version: 1.0
+main: org.limon4ik.thirst.Main
+api-version: 1.21
+depend:
+  - ItemsAdder
+  - PlaceholderAPI
+commands:
+  thirst:
+    {}
+
