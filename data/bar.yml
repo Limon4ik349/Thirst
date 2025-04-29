@@ -1,0 +1,8 @@
+info:
+  namespace: thirst
+huds:
+  thirst_bar:
+    enabled: true
+    show:
+      auto: false
+    type: CUSTOM

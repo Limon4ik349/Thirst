@@ -1,0 +1,21 @@
+info:
+  namespace: "thirst"
+font_images:
+  thirst_positive:
+    permission: thirst.emoji
+    show_in_gui: true
+    path: "font/thirst_positive.png"
+    scale_ratio: 8
+    y_position: 8
+  thirst_negative:
+    permission: thirst.emoji
+    show_in_gui: true
+    path: "font/thirst_negative.png"
+    scale_ratio: 8
+    y_position: 8
+  thirst_half:
+    permission: thirst.emoji
+    show_in_gui: true
+    path: "font/thirst_half.png"
+    scale_ratio: 8
+    y_position: 8
