@@ -6,7 +6,7 @@
 
     <groupId>org.limon4ik.thirst</groupId>
     <artifactId>Thirst</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
     <name>Thirst</name>
@@ -40,6 +40,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <outputDirectory>/home/alexandr/Рабочий стол/1.21.1/plugins</outputDirectory>
+                </configuration>
             </plugin>
         </plugins>
         <resources>

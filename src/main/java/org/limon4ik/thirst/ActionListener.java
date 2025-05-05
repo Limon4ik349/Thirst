@@ -1,5 +1,6 @@
 package org.limon4ik.thirst;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,9 +11,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleSprintEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import static org.bukkit.Bukkit.getLogger;
+import static org.limon4ik.thirst.Main.config;
 
 public class ActionListener implements Listener {
     private final PlayerManager players;
@@ -23,17 +23,25 @@ public class ActionListener implements Listener {
 
     @EventHandler
     public void onSprint(PlayerToggleSprintEvent event) {
+        Player player = event.getPlayer();
         if (event.isSprinting()) {
-            Player player = event.getPlayer();
-            players.ChangeThirst(player, -0.0025F);
+            if (players.GetThirst(player) <= 4.5F) {
+                Bukkit.getScheduler().runTask(Main.getInstance(), () -> {
+                    player.setSprinting(false);
+                });
+                return;
+            }
+            players.ChangeThirst(player, (float) -config.getDouble("thirst-loss.sprinting", 0.0025));
             players.drawers.get(player.getUniqueId()).Draw(Math.round(players.GetThirst(player)));
         }
     }
 
+
+
     @EventHandler
     public void onAttack(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player player) {
-            players.ChangeThirst(player, -0.005F);
+            players.ChangeThirst(player, (float) -config.getDouble("thirst-loss.attacking", 0.005));
             players.drawers.get(player.getUniqueId()).Draw(Math.round(players.GetThirst(player)));
         }
     }
@@ -41,7 +49,7 @@ public class ActionListener implements Listener {
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        players.ChangeThirst(player, -0.00005F);
+        players.ChangeThirst(player, (float) -config.getDouble("thirst-loss.moving", 0.00005));
         players.drawers.get(player.getUniqueId()).Draw(Math.round(players.GetThirst(player)));
     }
 
@@ -60,7 +68,7 @@ public class ActionListener implements Listener {
             }
 
             event.setAmount(event.getAmount() * multiplier);
-            players.ChangeThirst(player, -0.15F);
+            players.ChangeThirst(player, (float) -config.getDouble("thirst-loss.regeneration", 0.15));
             players.drawers.get(player.getUniqueId()).Draw(Math.round(players.GetThirst(player)));
         }
     }
@@ -69,7 +77,7 @@ public class ActionListener implements Listener {
     public void onHungerChange(FoodLevelChangeEvent event) {
         if (event.getEntity() instanceof Player player) {
             if (event.getFoodLevel() > player.getFoodLevel()) {
-                players.ChangeThirst(player, -0.1F);
+                players.ChangeThirst(player, (float) -config.getDouble("thirst-loss.eating", 0.1));
                 players.drawers.get(player.getUniqueId()).Draw(Math.round(players.GetThirst(player)));
             }
         }
@@ -81,17 +89,17 @@ public class ActionListener implements Listener {
         ItemStack item = event.getItem();
 
         switch (item.getType()) {
-            case Material.BEETROOT_SOUP, Material.MUSHROOM_STEW -> players.ChangeThirst(player, 3F);
-            case Material.POTION -> players.ChangeThirst(player, 5F);
-            case Material.MILK_BUCKET -> players.ChangeThirst(player, 10F);
-            case Material.HONEY_BOTTLE -> players.ChangeThirst(player, -4F);
+            case Material.BEETROOT_SOUP, Material.MUSHROOM_STEW -> players.ChangeThirst(player, (float) config.getDouble("thirst-gain.soup", 3));
+            case Material.POTION -> players.ChangeThirst(player, (float) config.getDouble("thirst-gain.potion", 5));
+            case Material.MILK_BUCKET -> players.ChangeThirst(player, (float) config.getDouble("thirst-gain.milk", 10));
+            case Material.HONEY_BOTTLE -> players.ChangeThirst(player, (float) -config.getDouble("thirst-loss.honey", 4));
         }
     }
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
-        players.SetThirst(player, 20F);
+        players.SetThirst(player, (float) config.getDouble("thirst-default", 20));
         players.drawers.get(player.getUniqueId()).Draw(Math.round(players.GetThirst(player)));
     }
 }

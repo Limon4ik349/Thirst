@@ -1,0 +1,14 @@
+thirst-loss:
+  sprinting: 0.0025
+  attacking: 0.005
+  moving: 0.00005
+  regeneration: 0.15
+  eating: 0.1
+  honey: 4
+
+thirst-gain:
+  soup: 3
+  potion: 5
+  milk: 10
+
+thirst-default: 20
